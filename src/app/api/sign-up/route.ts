@@ -9,6 +9,7 @@ export const POST = async (request: NextRequest) => {
   const formData = await request.formData();
   const username = formData.get("username");
   const password = formData.get("password");
+  const email = formData.get("email");
   // basic check
   if (
     typeof username !== "string" ||
@@ -48,7 +49,7 @@ export const POST = async (request: NextRequest) => {
       attributes: {
         username,
         name: "",
-        email: "",
+        email: email as string,
       },
     });
     const session = await auth.createSession({
