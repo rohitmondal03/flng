@@ -10,7 +10,7 @@ export default async function AuthLayout({
   if (session?.session) redirect("/dashboard");
 
   return (
-    <div className="bg-muted h-screen pt-8">
+    <div className="bg-muted h-screen">
       {children}
     </div>
   );

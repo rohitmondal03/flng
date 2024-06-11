@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { FEATURES } from "@/lib/config/marketing";
+import { FEATURES } from "@/config/marketing";
 
 
 export function FeaturesSection() {

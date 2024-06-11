@@ -2,9 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 
+
 type Action = "/api/sign-in" | "/api/sign-up" | "/api/sign-out";
+
 
 const AuthForm = ({
   children,
@@ -42,7 +45,7 @@ const AuthForm = ({
       }}
     >
       {errors ? (
-        <div className="bg-red-100 p-3 my-4">
+        <div className="bg-red-100 dark:bg-red-500 rounded-lg p-3 my-4">
           <h3 className="font-bold text-md">Error!</h3>
           <p className="text-sm">{errors.error}</p>
         </div>

@@ -1,4 +1,4 @@
-import type { TNavLinks, TFeatures, TPricing } from "../@types/root.types";
+import type { TNavLinks, TFeatures, TPricing } from "../lib/@types/root.types";
 
 
 export const NAV_LINKS: TNavLinks[] = [
@@ -18,6 +18,10 @@ export const NAV_LINKS: TNavLinks[] = [
     href: "#connect",
     label: "Contact",
   },
+  {
+    href: "/sign-up",
+    label: "Sign Up"
+  }
 ]
 
 
@@ -63,6 +67,17 @@ export const FEATURES: TFeatures[] = [
 
 export const PRICING: TPricing[] = [
   {
+    title: "Free",
+    description: "For individuals and small teams getting started.",
+    price: "Free",
+    features: [
+      "2 GB storage",
+      "10 file uploads",
+      "Secure file sharing",
+      // "Standard support",
+    ],
+  },
+  {
     title: "Basic",
     description: "Perfect for individuals and small teams.",
     price: 9,
@@ -85,15 +100,15 @@ export const PRICING: TPricing[] = [
       "Priority support",
     ],
   },
-  {
-    title: "Enterprise",
-    description: "Tailored for large teams and organizations.",
-    price: "Contact Us",
-    features: [
-      "Unlimited storage",
-      "Unlimited file uploads",
-      "Dedicated account management",
-      "Analytical insights of documents",
-    ],
-  },
+  // {
+  //   title: "Enterprise",
+  //   description: "Tailored for large teams and organizations.",
+  //   price: "Contact Us",
+  //   features: [
+  //     "Unlimited storage",
+  //     "Unlimited file uploads",
+  //     "Dedicated account management",
+  //     "Analytical insights",
+  //   ],
+  // },
 ]

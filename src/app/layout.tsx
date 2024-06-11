@@ -3,7 +3,8 @@ import { Montserrat as Inter } from "next/font/google";
 
 import type { TLayoutProps } from "@/lib/@types/root.types";
 import { Navbar } from "@/components/shared/navbar";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ReduxProvider } from "@/components/providers/redux-provider";
 
 import "./globals.css";
 
@@ -28,8 +29,10 @@ export default function RootLayout({ children }: TLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          {children}
+          <ReduxProvider>
+            <Navbar />
+            {children}
+          </ReduxProvider>
         </ThemeProvider>
       </body>
     </html>

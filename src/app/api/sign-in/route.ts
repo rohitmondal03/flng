@@ -1,9 +1,9 @@
-import { auth } from "@/lib/auth/lucia";
 import * as context from "next/headers";
 import { NextResponse } from "next/server";
 import { LuciaError } from "lucia";
 
 import type { NextRequest } from "next/server";
+import { auth } from "@/lib/auth/lucia";
 
 export const POST = async (request: NextRequest) => {
   const formData = await request.formData();
@@ -42,12 +42,15 @@ export const POST = async (request: NextRequest) => {
     // find user by key
     // and validate password
     const key = await auth.useKey("username", username.toLowerCase(), password);
+
     const session = await auth.createSession({
       userId: key.userId,
       attributes: {},
     });
+
     const authRequest = auth.handleRequest(request.method, context);
     authRequest.setSession(session);
+
     return new Response(null, {
       status: 302,
       headers: {

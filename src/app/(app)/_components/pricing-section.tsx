@@ -2,7 +2,7 @@ import { CheckIcon } from "lucide-react"
 
 import type { TPricing } from "@/lib/@types/root.types"
 import { Button } from "@/components/ui/button"
-import { PRICING } from "@/lib/config/marketing"
+import { PRICING } from "@/config/marketing"
 import { Badge } from "@/components/ui/badge"
 
 
@@ -13,7 +13,7 @@ export function PricingSection() {
       className="w-full py-12 md:py-24 lg:py-24 bg-gray-100 dark:bg-gray-800"
     >
       <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center gap-2 text-center">
+        <div className="flex flex-col items-center justify-center gap-4 text-center">
           <Badge>
             Pricing
           </Badge>
@@ -53,12 +53,12 @@ const PricingCard = ({ title, description, features, price }: TPricing) => {
           <div className="flex items-baseline justify-center">
             {typeof price === "number" ? (
               <p>
-                <span className="text-4xl font-bold">$9</span>
+                <span className="text-4xl font-bold">Rs.{price}</span>
                 <span className="text-gray-500 dark:text-gray-400">/month</span>
               </p>
             ) : (
               <p className="font-bold text-4xl">
-                Custom
+                {price}
               </p>
             )}
           </div>

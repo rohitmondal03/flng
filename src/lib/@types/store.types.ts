@@ -1,5 +1,5 @@
-import { store } from "../store/store";
+import { reduxStore } from "../store/store";
 
 
-export type TRootState = ReturnType<typeof store.getState>;
-export type TAppDispatch = typeof store.dispatch;
+export type TRootState = ReturnType<typeof reduxStore.getState>;
+export type TAppDispatch = typeof reduxStore.dispatch;
