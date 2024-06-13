@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat as Inter } from "next/font/google";
 
 import type { TLayoutProps } from "@/lib/@types/root.types";
+import { supabaseClient } from "@/lib/supabase";
 import { Navbar } from "@/components/shared/navbar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ReduxProvider } from "@/components/providers/redux-provider";
@@ -19,7 +20,10 @@ export const metadata: Metadata = {
 };
 
 
-export default function RootLayout({ children }: TLayoutProps) {
+export default async function RootLayout({ children }: TLayoutProps) {
+  const { data } = supabaseClient.storage.from("storage").getPublicUrl("/files/Resume.pdf");
+  console.log(data.publicUrl)
+
   return (
     <html lang="en">
       <body className={inter.className}>
