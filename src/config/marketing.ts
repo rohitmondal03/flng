@@ -14,10 +14,6 @@ export const NAV_LINKS: TNavLinks[] = [
     href: "#about",
     label: "About",
   },
-  // {
-  //   href: "/#connect",
-  //   label: "Contact",
-  // },
   {
     href: "/sign-up",
     label: "Sign Up"

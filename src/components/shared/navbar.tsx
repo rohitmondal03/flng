@@ -3,6 +3,8 @@ import Link from "next/link"
 import { NAV_LINKS } from "@/config/marketing"
 import { ModeToggle } from "../buttons/ThemeToggle"
 import { Logo } from "./logo"
+import { routes } from "@/config/routes"
+import { getUserAuth } from "@/lib/auth/utils"
 
 
 export function Navbar() {

@@ -4,7 +4,7 @@ import { z } from "zod";
 
 export const { routes, useSafeParams, useSafeSearchParams } = createNavigationConfig(
   (defineRoute) => ({
-    home: defineRoute('/'),
+    homePage: defineRoute('/'),
     signIn: defineRoute('/sign-in'),
     signUp: defineRoute('/sign-up'),
     dashboard: defineRoute('/dashboard'),

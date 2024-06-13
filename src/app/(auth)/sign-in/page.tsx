@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
+import { cn } from "@/lib/utils";
 import { routes } from "@/config/routes";
 import AuthForm from "@/components/auth/Form";
+import { ChangePasswordDialog } from "./_components/change-password-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -37,17 +38,9 @@ export default function SignInPage() {
                   <Label htmlFor="password">
                     Password
                   </Label>
-                  <Link
-                    href="#"
-                    className={cn(buttonVariants({
-                      className: "text-sm font-medium text-muted-foreground",
-                      // text-gray-900 hover:underline dark:text-gray-50
-                      variant: "link",
-                    }))}
-                    prefetch={false}
-                  >
-                    Forgot password?
-                  </Link>
+                  <>
+                    <ChangePasswordDialog />
+                  </>
                 </div>
                 <Input
                   id="password"
@@ -74,7 +67,7 @@ export default function SignInPage() {
             </Link>
           </div>
         </div>
-      </div>
+      </div >
       <div className="relative flex-1 bg-gradient-to-r from-indigo-500 to-purple-500 dark:from-indigo-700 dark:to-purple-700">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="max-w-md space-y-4 text-center text-white">
@@ -90,6 +83,6 @@ export default function SignInPage() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }

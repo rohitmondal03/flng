@@ -1,9 +1,11 @@
+import type { NextRequest } from "next/server";
 import * as context from "next/headers";
 import { NextResponse } from "next/server";
 import { LuciaError } from "lucia";
 
-import type { NextRequest } from "next/server";
 import { auth } from "@/lib/auth/lucia";
+import { routes } from "@/config/routes";
+
 
 export const POST = async (request: NextRequest) => {
   const formData = await request.formData();
@@ -54,7 +56,7 @@ export const POST = async (request: NextRequest) => {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: "/dashboard", // redirect to profile page
+        Location: routes.dashboard(), // redirect to profile page
       },
     });
   } catch (e) {

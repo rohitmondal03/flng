@@ -1,9 +1,7 @@
 import type { TLayoutProps } from "@/lib/@types/root.types";
-import { checkAuth } from "@/lib/auth/utils";
-import { Toaster } from "@/components/ui/sonner";
 
 
-export default async function AppLayout({ children }: TLayoutProps) {
+export default function AppLayout({ children }: TLayoutProps) {
   // await checkAuth();
   return (
     <section>

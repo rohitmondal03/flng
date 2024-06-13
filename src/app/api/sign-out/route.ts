@@ -1,3 +1,4 @@
+import { routes } from "@/config/routes";
 import { auth } from "@/lib/auth/lucia";
 import * as context from "next/headers";
 
@@ -19,7 +20,7 @@ export const POST = async (request: NextRequest) => {
   return new Response(null, {
     status: 302,
     headers: {
-      Location: "/sign-in", // redirect to login page
+      Location: routes.homePage(), // redirect to login page
     },
   });
 };

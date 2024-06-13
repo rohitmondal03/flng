@@ -1,8 +1,16 @@
-import AuthForm from "@/components/auth/Form";
-import { getUserAuth } from "@/lib/auth/utils";
+import { redirect } from "next/navigation";
 
-export default async function Home() {
+import { routes } from "@/config/routes";
+import { getUserAuth } from "@/lib/auth/utils";
+import AuthForm from "@/components/auth/Form";
+
+
+export default async function DashboardPage() {
   const { session } = await getUserAuth();
+
+  if(!session) redirect(routes.signIn());
+
+  
   return (
     <main className="">
       <h1 className="text-2xl font-bold my-2">Profile</h1>
