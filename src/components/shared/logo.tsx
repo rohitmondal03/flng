@@ -11,7 +11,7 @@ export function Logo() {
     >
       <CloudIcon className="size-6" />
       <span className="text-lg font-bold">
-        fling
+        flng
       </span>
     </Link>
   )

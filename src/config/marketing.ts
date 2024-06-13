@@ -3,21 +3,21 @@ import type { TNavLinks, TFeatures, TPricing } from "../lib/@types/root.types";
 
 export const NAV_LINKS: TNavLinks[] = [
   {
-    href: "#features",
+    href: "/#features",
     label: "Features",
   },
   {
-    href: "#pricing",
+    href: "/#pricing",
     label: "Pricing",
   },
   {
     href: "#about",
     label: "About",
   },
-  {
-    href: "#connect",
-    label: "Contact",
-  },
+  // {
+  //   href: "/#connect",
+  //   label: "Contact",
+  // },
   {
     href: "/sign-up",
     label: "Sign Up"
