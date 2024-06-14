@@ -1,6 +1,6 @@
 "use client"
 
-import { type InputHTMLAttributes, useActionState } from "react";
+import { useState, type InputHTMLAttributes } from "react";
 import { useFormStatus } from "react-dom";
 
 import { resetPasswordAction } from "@/lib/actions/auth-actions";
@@ -14,10 +14,34 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ZodIssue } from "zod";
 
 
-export function ChangePasswordDialog() {
-  
+export default function ForgotPasswordPage() {
+  const { pending } = useFormStatus();
+  const [error, setErrors] = useState<ZodIssue[] | {
+    message: string;
+  }>()
+
+  // Server action
+  const resetPassword = async (formData: FormData) => {
+    const userData = {
+      userName: formData.get("username"),
+      password: formData.get("password"),
+      confirmPassword: formData.get("confirm-password"),
+    }
+
+    const result = await resetPasswordAction(userData);
+
+    if (result?.error) {
+      console.error(result?.error);
+      setErrors(result?.error);
+      return;
+    }
+
+    // console.log("")
+  }
+
 
   return (
     <Dialog>
@@ -30,11 +54,16 @@ export function ChangePasswordDialog() {
         </Button>
       </DialogTrigger>
       <DialogContent>
+        {error && (
+          <div className="text-red-500">
+            Error is there
+          </div>
+        )}
         <DialogHeader className="text-lg font-bold underline underline-offset-4">
           Change your password
         </DialogHeader>
         <form
-          action={resetPasswordAction}
+          action={resetPassword}
           className="space-y-4"
         >
           <InputWithLabel
@@ -62,8 +91,10 @@ export function ChangePasswordDialog() {
             <Button
               type="submit"
               variant={"destructive"}
+              disabled={pending}
+              className={`${pending ? "opacity-50" : null}`}
             >
-              Reset Password
+              {pending ? "Loading..." : "Change Password"}
             </Button>
           </DialogFooter>
         </form>
@@ -88,7 +119,6 @@ const InputWithLabel = (props: InputHTMLAttributes<HTMLInputElement> & {
         type={props.type}
         id={props.id}
         name={props.name}
-        required
         placeholder={props.placeholder}
       />
     </div>

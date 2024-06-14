@@ -1,13 +1,15 @@
 import { createNavigationConfig } from "next-safe-navigation"
-import { z } from "zod";
 
 
 export const { routes, useSafeParams, useSafeSearchParams } = createNavigationConfig(
   (defineRoute) => ({
     homePage: defineRoute('/'),
+    dashboard: defineRoute('/dashboard'),
+
+    // auth routes
     signIn: defineRoute('/sign-in'),
     signUp: defineRoute('/sign-up'),
-    dashboard: defineRoute('/dashboard'),
+    forgotPassword: defineRoute("/forgot-password"),
   })
 );
 
