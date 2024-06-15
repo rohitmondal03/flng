@@ -32,30 +32,28 @@ export default function Component() {
   return (
     <div className="w-full min-h-screen flex flex-col">
       <header className="flex items-center justify-between shadow-sm p-4 sm:py-10 sm:px-6">
-        {/* <div className="container mx-auto py-6 flex items-center justify-between"> */}
-          <p className="text-xl sm:text-2xl font-bold">
-            <span className="underline underline-offset-4 decoration-gray-500">
-              David's
-            </span>
-            {" "}
-            Dashboard
-          </p>
-          <nav className="hidden md:flex items-center gap-4 text-sm">
-            {DASHBOARD_NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(buttonVariants({
-                  variant: "link",
-                  // className: "hover:text-gray-600 dark:hover:text-gray-400"
-                  className: "text-muted-foreground"
-                }))}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-        {/* </div> */}
+        <p className="text-xl sm:text-2xl font-bold">
+          <span className="underline underline-offset-4 decoration-gray-500">
+            David&apos;s
+          </span>
+          {" "}
+          Dashboard
+        </p>
+        <nav className="hidden md:flex items-center gap-4 text-sm">
+          {DASHBOARD_NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={cn(buttonVariants({
+                variant: "link",
+                // className: "hover:text-gray-600 dark:hover:text-gray-400"
+                className: "text-muted-foreground"
+              }))}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       </header>
       <main className="flex-1 grid grid-cols-6 gap-4 lg:gap-8 container mx-auto py-4 md:py-8 lg:py-12 px-4 lg:px-20 bg-gray-100 dark:bg-slate-400 text-gray-900 dark:text-gray-100">
         <Card className="col-span-6 md:col-span-3">

@@ -35,7 +35,7 @@ export default function ForgotPasswordPage() {
       return;
     } else {
       redirect(routes.signIn())
-      toast.success("Success !!",{
+      toast.success("Success !!", {
         description: "Password updated successfully.",
       })
     }
@@ -61,7 +61,10 @@ export default function ForgotPasswordPage() {
               Error!
             </h3>
             {error.map((errorMsg, idx) => (
-              <p className="text-sm">
+              <p
+                key={idx}
+                className="text-sm"
+              >
                 {idx + 1}{". "}{errorMsg}
               </p>
             ))}
