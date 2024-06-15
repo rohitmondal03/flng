@@ -10,7 +10,7 @@ export const resetPasswordAction = async (formData: unknown) => {
 
   if (!result.success) {
     return {
-      error: result.error.errors,
+      error: result.error.errors.map((error) => error.message)
     }
   }
 
@@ -28,23 +28,16 @@ export const resetPasswordAction = async (formData: unknown) => {
 
   if (!user) {
     return {
-      error: {
-        message: `User with username ${enteredUsername} does not exist`
-      }
+      error: [`User with username ${enteredUsername} does not exist`]
     }
   }
 
   // call the API to change the password
   try {
     const userAuth = await auth.updateKeyPassword("username", enteredUsername, newPassword)
-    console.log("Hoagaya bhai", userAuth)
   } catch (err) {
-    console.log("error", err)
+    return {
+      error: [`Error while changing password for ${enteredUsername}`]
+    }
   }
-
-  // return {
-  //   success: {
-  //     message: `Password changed successfully for ${enteredUsername}`
-  //   }
-  // }
 }

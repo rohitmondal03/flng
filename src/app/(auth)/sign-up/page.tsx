@@ -38,27 +38,6 @@ export default function SignInPage() {
           </div>
           <div className="rounded-lg border bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <AuthForm action="/api/sign-up">
-              {/* <Label htmlFor="name" className="text-muted-foreground">
-                Name
-              </Label>
-              <Input
-                name="name"
-                id="name"
-                placeholder="Enter your name"
-                autoComplete="off"
-              />
-              <br />
-              <Label htmlFor="email" className="text-muted-foreground">
-                Email
-              </Label>
-              <Input
-                autoComplete="off"
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Enter your E-Mail"
-              />
-              <br /> */}
               <Label htmlFor="username" className="text-muted-foreground">
                 Username
               </Label>
@@ -84,8 +63,8 @@ export default function SignInPage() {
               </Label>
               <Input
                 type="password"
-                name="password"
-                id="password"
+                name="confirm-password"
+                id="confirm-password"
                 placeholder="Confirm your password"
               />
               <br />

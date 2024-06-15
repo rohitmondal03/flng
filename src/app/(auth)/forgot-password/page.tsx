@@ -1,27 +1,20 @@
 "use client"
 
-import { useState, type InputHTMLAttributes } from "react";
-import { useFormStatus } from "react-dom";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { type InputHTMLAttributes, useState, } from "react";
+import { toast } from "sonner";
 
+import { routes } from "@/config/routes";
 import { resetPasswordAction } from "@/lib/actions/auth-actions";
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/buttons/submit-button"
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { ZodIssue } from "zod";
 
 
 export default function ForgotPasswordPage() {
-  const { pending } = useFormStatus();
-  const [error, setErrors] = useState<ZodIssue[] | {
-    message: string;
-  }>()
+  const [error, setErrors] = useState<string[]>();
+  const { push: redirect } = useRouter()
 
   // Server action
   const resetPassword = async (formData: FormData) => {
@@ -36,70 +29,105 @@ export default function ForgotPasswordPage() {
     if (result?.error) {
       console.error(result?.error);
       setErrors(result?.error);
+      toast.error("Error... !!", {
+        description: "Error while updating password.",
+      })
       return;
+    } else {
+      redirect(routes.signIn())
+      toast.success("Success !!",{
+        description: "Password updated successfully.",
+      })
     }
-
-    // console.log("")
   }
 
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button
-          variant={"link"}
-          className="text-muted-foreground"
-        >
-          Forgot Password
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        {error && (
-          <div className="text-red-500">
-            Error is there
+    <div className="mx-auto max-w-md space-y-6 py-12 h-full my-auto">
+      {/* flex flex-col items-center justify-center */}
+      <div className="space-y-2 text-center">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50">Forgot Password</h1>
+        <p className="text-gray-600 dark:text-gray-400">
+          Enter your username below to reset your password and get back on track.
+        </p>
+      </div>
+      <form
+        action={resetPassword}
+        className="space-y-4"
+      >
+        {error ? (
+          <div className="bg-red-100 dark:bg-red-500 rounded-lg p-3 my-4">
+            <h3 className="font-bold text-md">
+              Error!
+            </h3>
+            {error.map((errorMsg, idx) => (
+              <p className="text-sm">
+                {idx + 1}{". "}{errorMsg}
+              </p>
+            ))}
           </div>
-        )}
-        <DialogHeader className="text-lg font-bold underline underline-offset-4">
-          Change your password
-        </DialogHeader>
-        <form
-          action={resetPassword}
-          className="space-y-4"
-        >
-          <InputWithLabel
-            placeholder="Enter your username"
-            label="Username"
-            name="username"
+        ) : null}
+        <div className="space-y-1">
+          <Label
+            htmlFor="username"
+            className="font-medium text-muted-foreground"
+          >
+            User Name
+          </Label>
+          <Input
             id="username"
+            name="username"
             type="text"
+            autoComplete="off"
+            placeholder="e.g. rohitmondall"
+            className="pr-10"
           />
-          <InputWithLabel
-            placeholder="Enter new password"
-            label="Password"
-            name="password"
+        </div>
+        <div className="space-y-1">
+          <Label
+            htmlFor="email"
+            className="font-medium text-muted-foreground"
+          >
+            Password
+          </Label>
+          <Input
             id="password"
+            name="password"
             type="password"
+            placeholder="Enter new password"
+            className="pr-10"
           />
-          <InputWithLabel
-            placeholder="Confirm new password"
-            label="Confirm password"
-            name="confirm-password"
+        </div>
+        <div className="space-y-1">
+          <Label
+            htmlFor="email"
+            className="font-medium text-muted-foreground"
+          >
+            Confirm new Password
+          </Label>
+          <Input
             id="confirm-password"
+            name="confirm-password"
             type="password"
+            placeholder="Confirm new Password"
+            className="pr-10"
           />
-          <DialogFooter>
-            <Button
-              type="submit"
-              variant={"destructive"}
-              disabled={pending}
-              className={`${pending ? "opacity-50" : null}`}
-            >
-              {pending ? "Loading..." : "Change Password"}
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
+        </div>
+        <SubmitButton>
+          Reset Password
+        </SubmitButton>
+      </form>
+      <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+        Remember your password?{" "}
+        <Link
+          href={routes.signIn()}
+          className="font-medium text-gray-900 underline underline-offset-4 hover:text-gray-800 dark:text-gray-50 dark:hover:text-gray-200"
+          prefetch={false}
+        >
+          Login
+        </Link>
+      </div>
+    </div>
   )
 }
 

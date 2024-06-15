@@ -9,11 +9,12 @@ export const POST = async (request: NextRequest) => {
   const formData = await request.formData();
   const username = formData.get("username");
   const password = formData.get("password");
+  const confirmPassword = formData.get("confirm-password");
   const email = formData.get("email");
   // basic check
   if (
     typeof username !== "string" ||
-    username.length < 4 ||
+    username.length < 5 ||
     username.length > 31
   ) {
     return NextResponse.json(
@@ -28,11 +29,21 @@ export const POST = async (request: NextRequest) => {
   if (
     typeof password !== "string" ||
     password.length < 6 ||
-    password.length > 255
+    password.length > 255 
   ) {
     return NextResponse.json(
       {
         error: "Invalid password",
+      },
+      {
+        status: 400,
+      }
+    );
+  }
+  if(password !== confirmPassword) {
+    return NextResponse.json(
+      {
+        error: "Passwords do not match",
       },
       {
         status: 400,
