@@ -1,19 +1,16 @@
 import Link from "next/link"
-import { type FormEvent, } from "react"
 
 import { routes } from "@/config/routes"
 import { getUserAuth } from "@/lib/auth/utils"
 import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { buttonVariants } from "@/components/ui/button"
 
 
 export async function HeroSection() {
   const session = await getUserAuth();
 
   return (
-    <section className="w-full text-center py-12 md:py-24 lg:py-32 xl:pt-24 space-y-12">
+    <section className="w-full text-center py-12 md:py-24 lg:py-32 xl:pt-24 px-2 md:px-0 space-y-12">
       <div className="space-y-3">
         <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
           Secure and Effortless File Sharing

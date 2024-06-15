@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
+
 import { getPageSession } from "@/lib/auth/lucia";
+import { routes } from "@/config/routes";
 
 
 export type AuthSession = {
@@ -30,5 +32,5 @@ export const getUserAuth = async (): Promise<AuthSession> => {
 
 export const checkAuth = async () => {
   const session = await getPageSession();
-  if (!session) redirect("/sign-in");
+  if (!session) redirect(routes.signIn());
 };

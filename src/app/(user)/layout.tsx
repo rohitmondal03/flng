@@ -1,7 +1,10 @@
 import type { TLayoutProps } from "@/lib/@types/root.types";
+import { checkAuth } from "@/lib/auth/utils";
 
 
-export default function UserLayout({ children }: TLayoutProps) {
+export default async function UserLayout({ children }: TLayoutProps) {
+  await checkAuth();
+
   return (
     <section>
       <div className="flex">

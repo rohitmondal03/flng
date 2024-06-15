@@ -10,7 +10,7 @@ export function PricingSection() {
   return (
     <section
       id="pricing"
-      className="w-full py-12 md:py-24 lg:py-24 bg-gray-100 dark:bg-gray-800"
+      className="w-full py-12 md:py-16 lg:py-24 bg-gray-100 dark:bg-gray-800"
     >
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center gap-4 text-center">
@@ -39,7 +39,7 @@ export function PricingSection() {
 // Pricing card
 const PricingCard = ({ title, description, features, price }: TPricing) => {
   return (
-    <div className="rounded-lg border bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
+    <div className="rounded-lg border bg-white p-6 shadow-lg dark:border-gray-800 dark:bg-gray-950">
       <div className="space-y-4">
         <div>
           <h3 className="text-2xl font-bold">

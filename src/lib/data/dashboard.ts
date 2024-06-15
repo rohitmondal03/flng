@@ -9,5 +9,9 @@ export const DASHBOARD_NAV_LINKS: TDashboardNavLinks[] = [
   {
     href: "#received-files",
     label: "Received Files"
+  },
+  {
+    href: "#storage-details",
+    label: "Storage Details"
   }
 ]

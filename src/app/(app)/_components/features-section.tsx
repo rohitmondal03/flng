@@ -6,7 +6,7 @@ export function FeaturesSection() {
   return (
     <section
       id="features"
-      className="w-full py-12 md:py-24 lg:py-24 bg-gray-100 dark:bg-gray-800"
+      className="w-full py-12 md:py-16 lg:py-24 bg-gray-100 dark:bg-gray-800"
     >
       <div className="container text-center px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react"
 import { Montserrat as Inter } from "next/font/google";
 
 import type { TLayoutProps } from "@/lib/@types/root.types";
@@ -38,6 +39,7 @@ export default async function RootLayout({ children }: TLayoutProps) {
             {children}
           </ReduxProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
