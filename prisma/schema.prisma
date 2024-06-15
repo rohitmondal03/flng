@@ -6,9 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  directUrl    = env("DIRECT_URL")
   relationMode = "prisma"
 }
 
@@ -54,6 +54,7 @@ model Subscription {
 model File {
   id          String   @id @unique
   name        String
+  size        String
   user_id     String
   uploaded_at DateTime
   is_private  Boolean

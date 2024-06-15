@@ -21,8 +21,8 @@ export const metadata: Metadata = {
 
 
 export default async function RootLayout({ children }: TLayoutProps) {
-  const { data } = supabaseClient.storage.from("storage").getPublicUrl("/files/Resume.pdf");
-  console.log(data.publicUrl)
+  // const { data } = supabaseClient.storage.from("storage").getPublicUrl("files/Resume.pdf");
+  // console.log(data.publicUrl)
 
   return (
     <html lang="en">
