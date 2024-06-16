@@ -12,9 +12,15 @@ import {
 
 
 export async function UserDetails() {
-  // Get current suer's session
-  const userDetails = await getUserAuth();
-  const user = userDetails.session?.user;
+  const auth = await getUserAuth();
+  const username = auth.session?.user.username
+
+  // get user's other data from db
+  const userData = await db?.user.findFirst({
+    where: {
+      username: username,
+    },
+  });
 
 
   return (
@@ -24,14 +30,6 @@ export async function UserDetails() {
           <AvatarImage src="/placeholder-user.jpg" />
           <AvatarFallback>JP</AvatarFallback>
         </Avatar>
-        <div>
-          <h3 className="text-lg font-medium">
-            {user?.name}
-          </h3>
-          <p className="text-gray-500 dark:text-gray-400">
-            {user?.email}
-          </p>
-        </div>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
@@ -40,7 +38,7 @@ export async function UserDetails() {
               Joined on
             </p>
             <p className="text-base font-medium">
-              {new Date().toLocaleString("default", {
+              {userData?.onboarded_at && userData?.onboarded_at.toLocaleDateString("default", {
                 year: "numeric",
                 month: "short",
                 day: "2-digit",
@@ -52,7 +50,7 @@ export async function UserDetails() {
               Total Files Shared
             </p>
             <p className="text-base font-medium">
-              24
+              {userData?.files_shared}
             </p>
           </div>
           <div>
@@ -60,7 +58,7 @@ export async function UserDetails() {
               Total Files Received
             </p>
             <p className="text-base font-medium">
-              18
+              {userData?.files_received}
             </p>
           </div>
         </div>

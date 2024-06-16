@@ -13,13 +13,18 @@ datasource db {
 }
 
 model User {
-  id           String    @id @unique
-  username     String
-  name         String?
-  email        String?
-  auth_session Session[]
-  key          Key[]
-  files        File[]
+  id             String    @id @unique
+  username       String    @unique
+  name           String?
+  email          String?
+  files_received Int       @default(0)
+  files_shared   Int       @default(0)
+  total_storage  Int       @default(2)
+  storage_used   Int       @default(0)
+  onboarded_at   DateTime  @default(now())
+  auth_session   Session[]
+  key            Key[]
+  files          File[]
 }
 
 model Session {

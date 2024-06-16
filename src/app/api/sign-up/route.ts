@@ -29,7 +29,7 @@ export const POST = async (request: NextRequest) => {
   if (
     typeof password !== "string" ||
     password.length < 6 ||
-    password.length > 255 
+    password.length > 255
   ) {
     return NextResponse.json(
       {
@@ -40,7 +40,7 @@ export const POST = async (request: NextRequest) => {
       }
     );
   }
-  if(password !== confirmPassword) {
+  if (password !== confirmPassword) {
     return NextResponse.json(
       {
         error: "Passwords do not match",

@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
+import { getUserAuth } from "@/lib/auth/utils"
 import { DASHBOARD_NAV_LINKS } from "@/lib/data/dashboard"
 import { UserDetails } from "./_components/user-details"
 import { ProfileSettings } from "./_components/profile-settings"
@@ -11,13 +12,20 @@ import SignOutBtn from "@/components/auth/SignOutBtn"
 import { buttonVariants } from "@/components/ui/button"
 
 
-export default function Component() {
+export default async function Component() {
+  const auth = await getUserAuth();
+  const username = auth.session?.user.username
+
+
   return (
     <div className="w-full min-h-screen flex flex-col">
       <header className="flex items-center justify-between shadow-sm p-4 sm:py-10 px-4 lg:px-20 w-full">
         <div className="flex items-center gap-24">
-          <p className="text-xl sm:text-2xl font-bold underline underline-offset-4 decoration-2 decoration-slate-500">
-            Dashboard
+          <p className="text-xl sm:text-2xl font-bold">
+            <span className="underline underline-offset-4 decoration-2 decoration-slate-500">
+              {username}'s
+            </span> {" "}
+            <span className="text-zinc-500">Dashboard</span>
           </p>
           <nav className="hidden md:flex items-center gap-4 text-sm">
             {DASHBOARD_NAV_LINKS.map((link) => (

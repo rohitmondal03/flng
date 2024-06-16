@@ -1,3 +1,4 @@
+import { getUserAuth } from "@/lib/auth/utils";
 import { Progress } from "@/components/ui/progress"
 import {
   Card,
@@ -7,7 +8,22 @@ import {
 } from "@/components/ui/card"
 
 
-export function StorageUsageDetails() {
+export async function StorageUsageDetails() {
+  const auth = await getUserAuth();
+  const username = auth.session?.user.username
+
+  // get user's other data from db
+  const userData = await db?.user.findFirst({
+    where: {
+      username: username,
+    },
+  });
+
+
+  // progress bar value
+  const progressValue = Number(userData?.storage_used) / Number(userData?.total_storage) * 100
+
+
   return (
     <Card className="h-full">
       <CardHeader>
@@ -16,13 +32,21 @@ export function StorageUsageDetails() {
       <CardContent>
         <div className="grid gap-4">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-gray-500 dark:text-gray-400">Used Storage</p>
-            <p className="text-base font-medium">18.2 GB</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Used Storage
+            </p>
+            <p className="text-base font-medium">
+              {userData?.storage_used} GB
+            </p>
           </div>
-          <Progress value={65} />
+          <Progress value={progressValue} />
           <div className="flex items-center justify-between">
-            <p className="text-sm text-gray-500 dark:text-gray-400">Total Storage</p>
-            <p className="text-base font-medium">28 GB</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Total Storage
+            </p>
+            <p className="text-base font-medium">
+              {userData?.total_storage} GB
+            </p>
           </div>
         </div>
       </CardContent>
