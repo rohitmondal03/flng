@@ -1,22 +1,23 @@
 import type { TNavLinks, TFeatures, TPricing } from "../lib/@types/root.types";
+import { routes } from "./routes";
 
 
 export const NAV_LINKS: TNavLinks[] = [
   {
-    href: "/#features",
     label: "Features",
+    href: "/#features",
   },
   {
-    href: "/#pricing",
     label: "Pricing",
+    href: "/#pricing",
   },
   {
-    href: "#about",
     label: "About",
+    href: "#about",
   },
   {
-    href: "/sign-up",
-    label: "Sign Up"
+    label: "Dashboard",
+    href: routes.dashboard(),
   }
 ]
 

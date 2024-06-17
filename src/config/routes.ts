@@ -10,6 +10,8 @@ export const { routes, useSafeParams, useSafeSearchParams } = createNavigationCo
     signIn: defineRoute('/sign-in'),
     signUp: defineRoute('/sign-up'),
     forgotPassword: defineRoute("/forgot-password"),
+
+    shareeFile: defineRoute('/share-file'),
   })
 );
 

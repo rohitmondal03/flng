@@ -36,7 +36,8 @@ export async function StorageUsageDetails() {
               Used Storage
             </p>
             <p className="text-base font-medium">
-              {userData?.storage_used} GB
+              {userData?.storage_used} GB {" "}
+              <span className="text-muted-foreground">({`${progressValue}`}% used)</span>
             </p>
           </div>
           <Progress value={progressValue} />
