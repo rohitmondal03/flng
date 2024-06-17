@@ -7,7 +7,6 @@ import { supabaseClient } from "@/lib/supabase";
 import { Navbar } from "@/components/shared/navbar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ReduxProvider } from "@/components/providers/redux-provider";
-import { PDFConfigProvider } from "@/components/providers/pdf-config-provider";
 
 import "./globals.css";
 
@@ -38,9 +37,7 @@ export default async function RootLayout({ children }: TLayoutProps) {
         >
           <ReduxProvider>
             <Navbar />
-            <PDFConfigProvider>
-              {children}
-            </PDFConfigProvider>
+            {children}
           </ReduxProvider>
         </ThemeProvider>
         <Analytics />

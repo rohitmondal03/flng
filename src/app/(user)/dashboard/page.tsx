@@ -23,7 +23,7 @@ export default async function Component() {
         <div className="flex items-center gap-24">
           <p className="text-xl sm:text-2xl font-bold">
             <span className="underline underline-offset-4 decoration-2 decoration-slate-500">
-              {username}'s
+              {username}&apos;s
             </span> {" "}
             <span className="text-zinc-500">Dashboard</span>
           </p>
