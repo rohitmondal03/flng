@@ -5,15 +5,15 @@ import { routes } from "./routes";
 export const NAV_LINKS: TNavLinks[] = [
   {
     label: "Features",
-    href: "/#features",
+    href: routes.features(),
   },
   {
     label: "Pricing",
-    href: "/#pricing",
+    href: routes.pricing(),
   },
   {
-    label: "About",
-    href: "#about",
+    label: "Share File",
+    href: routes.shareFile(),
   },
   {
     label: "Dashboard",

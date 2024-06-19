@@ -5,13 +5,15 @@ export const { routes, useSafeParams, useSafeSearchParams } = createNavigationCo
   (defineRoute) => ({
     homePage: defineRoute('/'),
     dashboard: defineRoute('/dashboard'),
+    pricing: defineRoute('/#pricing'),
+    features: defineRoute('/#features'),
 
     // auth routes
     signIn: defineRoute('/sign-in'),
     signUp: defineRoute('/sign-up'),
     forgotPassword: defineRoute("/forgot-password"),
 
-    shareeFile: defineRoute('/share-file'),
+    shareFile: defineRoute('/share-file'),
   })
 );
 

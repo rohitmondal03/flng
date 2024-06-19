@@ -1,7 +1,6 @@
+import { TUserSchema } from "@/lib/@types/prisma-schema.types";
 import { getUserAuth } from "@/lib/auth/utils";
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { EmailAndNameInputForm } from "./email-and-name-input-form";
 import {
   Card,
   CardHeader,
@@ -15,11 +14,11 @@ export async function ProfileSettings() {
   const username = auth.session?.user.username
 
   // get user's other data from db
-  const userData = await db?.user.findFirst({
+  const userData: TUserSchema = await db?.user.findFirst({
     where: {
       username: username,
     },
-  });
+  }) as TUserSchema;
 
 
   return (
@@ -28,38 +27,7 @@ export async function ProfileSettings() {
         <CardTitle>Settings</CardTitle>
       </CardHeader>
       <CardContent>
-        <form
-          className="grid gap-4"
-        >
-          <div>
-            <Label htmlFor="name">
-              Name
-            </Label>
-            <Input
-              id="name"
-              autoComplete="off"
-              placeholder="User's name"
-              defaultValue={userData?.name || ""}
-            />
-          </div>
-          <div>
-            <Label htmlFor="email">
-              Email
-            </Label>
-            <Input
-              id="email"
-              autoComplete="off"
-              placeholder="User's email"
-              defaultValue={userData?.email || ""}
-            />
-          </div>
-          <Button
-            type="submit"
-            variant="default"
-          >
-            Save Changes
-          </Button>
-        </form>
+        <EmailAndNameInputForm {...userData} />
       </CardContent>
     </Card>
   )

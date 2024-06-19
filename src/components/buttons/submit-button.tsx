@@ -6,7 +6,9 @@ import { useFormStatus } from "react-dom";
 import { Button } from "../ui/button"
 
 
-type TProps = HTMLAttributes<HTMLButtonElement>
+type TProps = HTMLAttributes<HTMLButtonElement> & {
+  variant?: "default" | "link" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined
+}
 
 export function SubmitButton(props: TProps) {
   const { pending } = useFormStatus();
@@ -14,7 +16,7 @@ export function SubmitButton(props: TProps) {
   return (
     <Button
       type="submit"
-      variant={"destructive"}
+      variant={props.variant ? props.variant : "destructive"}
       className={`
         w-full
         ${props.className}

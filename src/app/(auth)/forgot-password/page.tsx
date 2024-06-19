@@ -6,7 +6,7 @@ import { type InputHTMLAttributes, useState, } from "react";
 import { toast } from "sonner";
 
 import { routes } from "@/config/routes";
-import { resetPasswordAction } from "@/lib/actions/auth-actions";
+import { resetPasswordAction } from "@/actions/auth-actions";
 import { SubmitButton } from "@/components/buttons/submit-button"
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -27,17 +27,10 @@ export default function ForgotPasswordPage() {
     const result = await resetPasswordAction(userData);
 
     if (result?.error) {
-      console.error(result?.error);
       setErrors(result?.error);
-      toast.error("Error... !!", {
-        description: "Error while updating password.",
-      })
       return;
     } else {
       redirect(routes.signIn())
-      toast.success("Success !!", {
-        description: "Password updated successfully.",
-      })
     }
   }
 
