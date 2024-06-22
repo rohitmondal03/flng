@@ -1,10 +1,44 @@
+"use client"
+
+import { FormEvent, useState } from "react"
+import { InfoIcon, Plus } from "lucide-react"
+
+import { addFileToDatabse } from "@/actions/file-handling-actions"
+import { FileUploader } from "@/components/ui/file-uploader"
+import { useToast } from "@/components/ui/use-toast"
+import { DetailsInput } from "@/components/ui/details-input"
+import { SubmitButton } from "@/components/buttons/submit-button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { FileUploader } from "./_components/file"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 
-export default function Component() {
+export default function ShareFilePage() {
+  const { toast } = useToast()
+  const [files, setFiles] = useState<File[]>([]);
+  const [isPasswordProtected, setPasswordProtected] = useState(true);
+
+  const handleAddFile = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const response = await addFileToDatabse(files)
+
+    if (response?.error) {
+      toast({
+        title: "Error",
+        description: response.error,
+        duration: 3000,
+      })
+    } else {
+      toast({
+        title: "Success",
+        description: "File shared successfully",
+      })
+    }
+  }
+
+
   return (
     <section className="grid md:grid-cols-2 gap-8 items-center justify-center py-10 px-16">
       <div className="space-y-6">
@@ -16,48 +50,69 @@ export default function Component() {
             Choose how you want to share your file with others.
           </p>
         </div>
-        {/* FILES INPUT AND SHOWING SMALL PREVIEW !! */}
-        <FileUploader />
+        <FileUploader
+          onValueChange={setFiles}
+          value={files}
+          maxFiles={3}
+        />
       </div>
       <div className="bg-gray-100 dark:bg-gray-800 rounded-lg px-8 py-12 flex items-center justify-center">
-        <div className="space-y-10">
-          <div className="space-y-4">
-            {/* CHECKBOXES !!` */}
-          </div>
-          <div className="space-y-4">
-            <div className="grid gap-2">
-              <Label htmlFor="receiver">
-                Recipient&apos;s Name
-              </Label>
-              <Input
+        <form
+          onSubmit={handleAddFile}
+          className="space-y-8 w-4/5"
+        >
+          <div className="space-y-6">
+            <div className="grid grid-cols-2 gap-2">
+              <DetailsInput
+                label="Recipient's Name"
+                name="receiver"
                 id="receiver"
-                placeholder="Enter recipient's name"
+                placeholder="Enter receiver's username"
               />
+              <Button
+                size={"sm"}
+                variant={"default"}
+                className="w-full mt-6 text-xs"
+              >
+                Add Another Recipient
+              </Button>
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">
-                Password
-              </Label>
-              <Input
+            {isPasswordProtected && (
+              <DetailsInput
+                label="Password"
+                name="password"
                 id="password"
                 type="password"
+                autoComplete="off"
                 placeholder="Enter password"
+              />
+            )}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center justify-center gap-2">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <InfoIcon
+                      className="w-5 h-5 text-gray-500 dark:text-gray-400 cursor-pointer hover:text-black dark:hover:text-white transition-colors duration-200"
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent className="w-80 leading-5">
+                    Password protection will encrypt your file with a password. The receiver will need to enter the password to access the file.
+                  </TooltipContent>
+                </Tooltip>
+                <Label className="text-muted-foreground">
+                  Is this file password protected?
+                </Label>
+              </div>
+              <Checkbox
+                checked={isPasswordProtected}
+                onCheckedChange={(check: boolean) => setPasswordProtected(check)}
               />
             </div>
           </div>
-          <div className="grid gap-2">
-            <p className="">
-              File Size: {" "}
-              <span className="font-semibold">10 GB (10,240 MB)</span>
-            </p>
-            <Button
-              type="submit"
-              className="w-full"
-            >
-              Share File
-            </Button>
-          </div>
-        </div>
+          <SubmitButton variant={"destructive"}>
+            Share File
+          </SubmitButton>
+        </form>
       </div>
     </section>
   )

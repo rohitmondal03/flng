@@ -61,7 +61,7 @@ model File {
   name        String
   size        String
   user_id     String
-  uploaded_at DateTime
+  uploaded_at DateTime @default(now())
   is_private  Boolean
   password    String?
   user        User     @relation(references: [id], fields: [user_id], onDelete: Cascade)

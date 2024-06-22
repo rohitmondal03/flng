@@ -8,6 +8,7 @@ import { Navbar } from "@/components/shared/navbar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ReduxProvider } from "@/components/providers/redux-provider";
 import { Toaster } from "@/components/ui/toaster"
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 // Styles for react-pdf package
 import 'react-pdf/dist/Page/AnnotationLayer.css';
@@ -41,8 +42,10 @@ export default async function RootLayout({ children }: TLayoutProps) {
           disableTransitionOnChange
         >
           <ReduxProvider>
-            <Navbar />
-            {children}
+            <TooltipProvider>
+              <Navbar />
+              {children}
+            </TooltipProvider>
           </ReduxProvider>
         </ThemeProvider>
         <Toaster />

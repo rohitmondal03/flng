@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type InputHTMLAttributes, useState, } from "react";
-import { toast } from "sonner";
 
 import { routes } from "@/config/routes";
 import { resetPasswordAction } from "@/actions/auth-actions";
@@ -16,6 +15,7 @@ export default function ForgotPasswordPage() {
   const [error, setErrors] = useState<string[]>();
   const { push: redirect } = useRouter()
 
+  
   // Server action
   const resetPassword = async (formData: FormData) => {
     const userData = {

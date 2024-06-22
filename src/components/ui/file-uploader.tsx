@@ -3,7 +3,6 @@
 import * as React from "react"
 import Image from "next/image"
 import { Paperclip, Plus, UploadIcon } from "lucide-react"
-import { toast } from "sonner"
 import Dropzone, {
   type DropzoneProps,
   type FileRejection,
@@ -11,6 +10,7 @@ import Dropzone, {
 
 import { cn, formatBytes } from "@/lib/utils"
 import { useControllableState } from "@/hooks/use-controllable-state"
+import { useToast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -102,6 +102,8 @@ interface FileCardProps {
 
 
 export function FileUploader(props: FileUploaderProps) {
+  const { toast } = useToast()
+
   const {
     value: valueProp,
     onValueChange,
@@ -139,12 +141,18 @@ export function FileUploader(props: FileUploaderProps) {
   const onDrop = React.useCallback(
     (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
       if (!multiple && maxFiles === 1 && acceptedFiles.length > 1) {
-        toast.error("Cannot upload more than 1 file at a time")
+        toast({
+          title: "Cannot upload more than 1 file at a time",
+          description: "Cannot upload more than 1 file at a time"
+        })
         return
       }
 
       if ((files?.length ?? 0) + acceptedFiles.length > maxFiles) {
-        toast.error(`Cannot upload more than ${maxFiles} files`)
+        toast({
+          title: "",
+          description: `Cannot upload more than ${maxFiles} files`
+        })
         return
       }
 
@@ -160,7 +168,10 @@ export function FileUploader(props: FileUploaderProps) {
 
       if (rejectedFiles.length > 0) {
         rejectedFiles.forEach(({ file }) => {
-          toast.error(`File ${file.name} was rejected`)
+          toast({
+            title: "Invalid file",
+            description: `${file.name} is not a valid file`,
+          })
         })
       }
 
@@ -171,15 +182,6 @@ export function FileUploader(props: FileUploaderProps) {
       ) {
         const target =
           updatedFiles.length > 0 ? `${updatedFiles.length} files` : `file`
-
-        toast.promise(onUpload(updatedFiles), {
-          loading: `Uploading ${target}...`,
-          success: () => {
-            setFiles([])
-            return `${target} uploaded`
-          },
-          error: `Failed to upload ${target}`,
-        })
       }
     },
 
