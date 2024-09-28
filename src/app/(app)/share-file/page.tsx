@@ -3,8 +3,7 @@
 import { FormEvent, useState } from "react"
 import { InfoIcon, Plus } from "lucide-react"
 
-import { addFileToDatabse } from "@/actions/file-handling-actions"
-import { FileUploader } from "@/components/ui/file-uploader"
+import { addFileToDatabse } from "@/actions/file-handling.actions"
 import { useToast } from "@/components/ui/use-toast"
 import { DetailsInput } from "@/components/ui/details-input"
 import { SubmitButton } from "@/components/buttons/submit-button"
@@ -12,16 +11,27 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { Input } from "@/components/ui/input"
 
 
 export default function ShareFilePage() {
   const { toast } = useToast()
-  const [files, setFiles] = useState<File[]>([]);
   const [isPasswordProtected, setPasswordProtected] = useState(true);
 
   const handleAddFile = async (formdata: FormData) => {
-    const response = await addFileToDatabse(formdata)
+    const response = await addFileToDatabse(formdata);
 
+    if(response){
+      toast({
+        title: "Error adding it to database",
+        description: typeof response.error === "string"
+          ? response.error
+          : response.error.message,
+      })
+      return;
+    }
+
+    
     // if (response?.error) {
     //   toast({
     //     title: "Error",
@@ -38,7 +48,10 @@ export default function ShareFilePage() {
 
 
   return (
-    <form action={handleAddFile} className="grid md:grid-cols-2 gap-8 items-center justify-center py-10 px-16">
+    <form
+      action={handleAddFile}
+      className="grid md:grid-cols-2 gap-8 items-center justify-center py-10 px-16"
+    >
       <div className="space-y-6">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">
@@ -48,13 +61,11 @@ export default function ShareFilePage() {
             Choose how you want to share your file with others.
           </p>
         </div>
-        {/* <FileUploader
-          onValueChange={setFiles}
-          value={files}
-          maxFiles={3}
+        <Input
+          type="file"
           name="file"
-        /> */}
-        <input type="file" name="file" />
+          accept="application/pdf, application/docs, application/docx, application/doc"
+        />
       </div>
       <div className="bg-gray-100 dark:bg-gray-800 rounded-lg px-8 py-12 flex items-center justify-center">
         <div

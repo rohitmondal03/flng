@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
   engineType = "library"
 }
 
@@ -58,10 +58,11 @@ model Subscription {
 }
 
 model File {
-  id          String   @id @unique
+  id          String   @id @unique @default(cuid())
   name        String
-  size        String
+  size        Int
   user_id     String
+  db_file_id  String
   uploaded_at DateTime @default(now())
   is_private  Boolean
   password    String?

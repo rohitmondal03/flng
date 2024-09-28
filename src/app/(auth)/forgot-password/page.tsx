@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { type InputHTMLAttributes, useState, } from "react";
 
 import { routes } from "@/config/routes";
-import { resetPasswordAction } from "@/actions/auth-actions";
+import { resetPasswordAction } from "@/actions/auth.actions";
 import { SubmitButton } from "@/components/buttons/submit-button"
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
