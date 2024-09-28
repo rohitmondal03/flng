@@ -91,6 +91,8 @@ interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
    * @example disabled
    */
   disabled?: boolean
+
+  name: string
 }
 
 interface FileCardProps {
@@ -232,7 +234,7 @@ export function FileUploader(props: FileUploaderProps) {
             )}
             {...dropzoneProps}
           >
-            <input {...getInputProps()} />
+            <input {...getInputProps()} name={name} />
             {isDragActive ? (
               <div className="flex flex-col items-center justify-center gap-4 sm:px-5">
                 <div className="rounded-full border border-dashed p-3">
@@ -280,6 +282,7 @@ export function FileUploader(props: FileUploaderProps) {
                 file={file}
                 onRemove={() => onRemove(index)}
                 progress={progresses?.[file.name]}
+                name=""
               />
             ))}
           </div>

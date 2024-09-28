@@ -16,13 +16,14 @@ export function SubmitButton(props: TProps) {
   return (
     <Button
       type="submit"
+      disabled={pending}
       variant={props.variant ? props.variant : "destructive"}
       className={`
         w-full
         ${props.className}
       `}
     >
-      {pending ? "Wait.." : props.children}
+      {pending ? "Loading..." : props.children}
     </Button>
   )
 }

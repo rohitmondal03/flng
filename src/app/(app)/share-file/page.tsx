@@ -19,28 +19,26 @@ export default function ShareFilePage() {
   const [files, setFiles] = useState<File[]>([]);
   const [isPasswordProtected, setPasswordProtected] = useState(true);
 
-  const handleAddFile = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleAddFile = async (formdata: FormData) => {
+    const response = await addFileToDatabse(formdata)
 
-    const response = await addFileToDatabse(files)
-
-    if (response?.error) {
-      toast({
-        title: "Error",
-        description: response.error,
-        duration: 3000,
-      })
-    } else {
-      toast({
-        title: "Success",
-        description: "File shared successfully",
-      })
-    }
+    // if (response?.error) {
+    //   toast({
+    //     title: "Error",
+    //     description: response.error,
+    //     duration: 3000,
+    //   })
+    // } else {
+    //   toast({
+    //     title: "Success",
+    //     description: "File shared successfully",
+    //   })
+    // }
   }
 
 
   return (
-    <section className="grid md:grid-cols-2 gap-8 items-center justify-center py-10 px-16">
+    <form action={handleAddFile} className="grid md:grid-cols-2 gap-8 items-center justify-center py-10 px-16">
       <div className="space-y-6">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">
@@ -50,15 +48,17 @@ export default function ShareFilePage() {
             Choose how you want to share your file with others.
           </p>
         </div>
-        <FileUploader
+        {/* <FileUploader
           onValueChange={setFiles}
           value={files}
           maxFiles={3}
-        />
+          name="file"
+        /> */}
+        <input type="file" name="file" />
       </div>
       <div className="bg-gray-100 dark:bg-gray-800 rounded-lg px-8 py-12 flex items-center justify-center">
-        <form
-          onSubmit={handleAddFile}
+        <div
+          // action={handleAddFile}
           className="space-y-8 w-4/5"
         >
           <div className="space-y-6">
@@ -112,8 +112,8 @@ export default function ShareFilePage() {
           <SubmitButton variant={"destructive"}>
             Share File
           </SubmitButton>
-        </form>
+        </div>
       </div>
-    </section>
+    </form>
   )
 }

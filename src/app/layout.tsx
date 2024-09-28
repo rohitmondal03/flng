@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react"
-import { Montserrat } from "next/font/google";
+import { Montserrat, Figtree } from "next/font/google";
 
 import type { TLayoutProps } from "@/lib/@types/root.types";
-import { supabaseClient } from "@/lib/supabase";
 import { Navbar } from "@/components/shared/navbar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { ReduxProvider } from "@/components/providers/redux-provider";
 import { Toaster } from "@/components/ui/toaster"
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -29,9 +27,6 @@ export const metadata: Metadata = {
 
 
 export default async function RootLayout({ children }: TLayoutProps) {
-  // const { data } = supabaseClient.storage.from("storage").getPublicUrl("files/Resume.pdf");
-  // console.log(data.publicUrl)
-
   return (
     <html lang="en">
       <body className={montserrat.className}>
@@ -41,12 +36,10 @@ export default async function RootLayout({ children }: TLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          <ReduxProvider>
-            <TooltipProvider>
-              <Navbar />
-              {children}
-            </TooltipProvider>
-          </ReduxProvider>
+          <TooltipProvider>
+            <Navbar />
+            {children}
+          </TooltipProvider>
         </ThemeProvider>
         <Toaster />
         <Analytics />
