@@ -12,8 +12,8 @@ export const NAV_LINKS: TNavLinks[] = [
     href: routes.pricing(),
   },
   {
-    label: "Share File",
-    href: routes.shareFile(),
+    label: "Upload File",
+    href: routes.uploadFiles(),
   },
   {
     label: "Dashboard",

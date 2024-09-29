@@ -20,8 +20,9 @@ model User {
   email          String?
   files_received Int       @default(0)
   files_shared   Int       @default(0)
-  total_storage  Int       @default(2)
-  storage_used   Int       @default(0)
+  files_uploaded Int       @default(0)
+  storage_used   BigInt    @default(0)
+  total_storage  BigInt    @default(1048576) // stored in bytes
   onboarded_at   DateTime  @default(now())
   auth_session   Session[]
   key            Key[]
@@ -63,10 +64,10 @@ model File {
   size        Int
   user_id     String
   db_file_id  String
-  uploaded_at DateTime @default(now())
   is_private  Boolean
-  password    String?
-  user        User     @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  uploaded_at DateTime @default(now())
+  shared_with String[] @default([])
+  user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
 }

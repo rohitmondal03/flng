@@ -6,7 +6,6 @@ import { Input } from './input'
 
 type TProps = InputHTMLAttributes<HTMLInputElement> & {
   label: ReactNode | string;
-  name: string
 }
 
 
@@ -17,9 +16,9 @@ export function DetailsInput(props: TProps) {
         {props.label}
       </Label>
       <Input
-        name={props.name}
         id={props.id}
         placeholder={props.placeholder}
+        {...props}
       />
     </div>
   )

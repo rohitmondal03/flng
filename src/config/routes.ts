@@ -13,7 +13,7 @@ export const { routes, useSafeParams, useSafeSearchParams } = createNavigationCo
     signUp: defineRoute('/sign-up'),
     forgotPassword: defineRoute("/forgot-password"),
 
-    shareFile: defineRoute('/share-file'),
+    uploadFiles: defineRoute('/upload-file'),
   })
 );
 
