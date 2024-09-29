@@ -1,8 +1,7 @@
 "use server"
 
 import { resetPasswordSchema } from "@/lib/validators/auth-schemas";
-import { auth } from "../lib/auth/lucia";
-import { getUserAuth } from "../lib/auth/utils";
+import { auth } from "@/lib/auth/lucia";
 
 
 export const resetPasswordAction = async (formData: unknown) => {

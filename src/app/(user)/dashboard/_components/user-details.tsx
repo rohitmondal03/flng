@@ -15,13 +15,12 @@ export async function UserDetails() {
   const auth = await getUserAuth();
   const username = auth.session?.user.username
 
-  // get user's other data from db
+  // get user's data from db
   const userData = await db?.user.findFirst({
     where: {
       username: username,
     },
   });
-
 
   return (
     <Card className="h-full">
@@ -32,7 +31,7 @@ export async function UserDetails() {
         </Avatar>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-4">
+        <div className="grid grid-cols-2 gap-y-8 justify-between">
           <div>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Joined on
@@ -59,6 +58,14 @@ export async function UserDetails() {
             </p>
             <p className="text-base font-medium">
               {userData?.files_received}
+            </p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Total Files Uploaded
+            </p>
+            <p className="text-base font-medium">
+              {userData?.files_uploaded}
             </p>
           </div>
         </div>

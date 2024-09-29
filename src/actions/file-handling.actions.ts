@@ -20,7 +20,7 @@ export const addFileToDatabase = async (data: FormData) => {
 
   const userData = await db?.user.findFirst({
     where: {
-      id: session.user.userId,
+      username: session.user.username,
     }
   })
 
@@ -51,18 +51,24 @@ export const addFileToDatabase = async (data: FormData) => {
         user_id: session.user.userId,
         uploaded_at: new Date(),
         db_file_id: fileData.id,
-        is_private: isPrivate === "on" ? true : false,
+        is_private: isPrivate === "on",
       }
     })
+  }
 
-    await db?.user.update({
+  try {
+    const foundUserData = await db?.user.update({
       where: {
-        id: session.user.userId,
+        username: session.user.username,
       },
       data: {
-        files_uploaded: userData?.files_uploaded ?? 0 + 1,
-        
+        files_uploaded: Number(userData?.files_uploaded) + 1,
+        storage_used: Number(userData?.storage_used) + file.size,
       }
     })
+  } catch (error) {
+    return {
+      error
+    }
   }
 }

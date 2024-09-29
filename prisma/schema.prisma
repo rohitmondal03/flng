@@ -21,8 +21,8 @@ model User {
   files_received Int       @default(0)
   files_shared   Int       @default(0)
   files_uploaded Int       @default(0)
-  storage_used   BigInt    @default(0)
-  total_storage  BigInt    @default(1048576) // stored in bytes
+  storage_used   Int       @default(0)
+  total_storage  Int       @default(1048576) // stored in bytes
   onboarded_at   DateTime  @default(now())
   auth_session   Session[]
   key            Key[]

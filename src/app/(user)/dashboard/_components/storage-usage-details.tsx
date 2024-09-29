@@ -19,10 +19,8 @@ export async function StorageUsageDetails() {
     },
   });
 
-
   // progress bar value
-  const progressValue = Number(userData?.storage_used) / Number(userData?.total_storage) * 100
-
+  const progressValue = (Number(userData?.storage_used || 0) / Number(userData?.total_storage || 1)) * 100;
 
   return (
     <Card className="h-full">
@@ -36,7 +34,7 @@ export async function StorageUsageDetails() {
               Used Storage
             </p>
             <p className="text-base font-medium">
-              {userData?.storage_used} MB {" "}
+              {String(Number(userData?.storage_used ?? 0) / 1024 / 1024)} MB
               <span className="text-muted-foreground">({`${progressValue}`}% used)</span>
             </p>
           </div>
@@ -46,7 +44,7 @@ export async function StorageUsageDetails() {
               Total Storage
             </p>
             <p className="text-base font-medium">
-              {userData?.total_storage} MB
+              {String(Number(userData?.total_storage ?? 0) / 1024 / 1024)} MB
             </p>
           </div>
         </div>

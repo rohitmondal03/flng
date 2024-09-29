@@ -51,7 +51,7 @@ export function AddFileForm() {
     if (response) {
       toast({
         title: "Error adding your file !!",
-        description: response.error,
+        description: String(response.error),
       })
       return;
     }

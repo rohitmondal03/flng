@@ -12,6 +12,16 @@ export const POST = async (request: NextRequest) => {
   const confirmPassword = formData.get("confirm-password");
   const email = formData.get("email");
   // basic check
+  if (password !== confirmPassword) {
+    return NextResponse.json(
+      {
+        error: "Passwords do not match",
+      },
+      {
+        status: 400,
+      }
+    );
+  }
   if (
     typeof username !== "string" ||
     username.length < 5 ||
@@ -34,16 +44,6 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json(
       {
         error: "Invalid password",
-      },
-      {
-        status: 400,
-      }
-    );
-  }
-  if (password !== confirmPassword) {
-    return NextResponse.json(
-      {
-        error: "Passwords do not match",
       },
       {
         status: 400,

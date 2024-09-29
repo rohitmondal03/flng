@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
 import { TUserSchema } from "@/lib/@types/prisma-schema.types";
-import { addUsersNameAndEmail as updateUsersDetails } from "@/actions/users-action";
+import { addUsersNameAndEmail as updateUsersDetails } from "@/actions/users.action";
 import { SubmitButton } from "@/components/buttons/submit-button";
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -29,7 +29,7 @@ export function EmailAndNameInputForm(props: TProps) {
       setErrors(result.error)
       toast({
         title: "Error",
-        description: result.error.join(" ")
+        description: result.error.join(". ")
       })
     } else {
       toast({

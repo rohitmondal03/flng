@@ -14,16 +14,15 @@ import { buttonVariants } from "@/components/ui/button"
 
 export default async function Component() {
   const auth = await getUserAuth();
-  const username = auth.session?.user.username
-
-
+  const user = auth.session?.user;
+  
   return (
     <div className="w-full min-h-screen flex flex-col">
       <header className="flex items-center justify-between shadow-sm p-4 sm:py-10 px-4 lg:px-20 w-full">
         <div className="flex items-center gap-24">
           <p className="text-xl sm:text-2xl font-bold">
             <span className="underline underline-offset-4 decoration-2 decoration-slate-500">
-              {username}&apos;s
+              {user?.name || user?.username}&apos;s
             </span> {" "}
             <span className="text-zinc-500">Dashboard</span>
           </p>
