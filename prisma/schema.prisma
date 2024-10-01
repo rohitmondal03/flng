@@ -62,6 +62,7 @@ model File {
   id          String   @id @unique @default(cuid())
   name        String
   size        Int
+  file_type   FileType  @default(Unknown)
   user_id     String
   db_file_id  String
   is_private  Boolean
@@ -70,4 +71,11 @@ model File {
   user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
+}
+
+
+enum FileType {
+  Unknown
+  Document
+  Image
 }

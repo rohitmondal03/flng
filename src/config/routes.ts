@@ -14,6 +14,8 @@ export const { routes, useSafeParams, useSafeSearchParams } = createNavigationCo
     forgotPassword: defineRoute("/forgot-password"),
 
     uploadFiles: defineRoute('/upload-file'),
+    receivedfiles: defineRoute("/dashboard/received-files"),
+    yourfiles: defineRoute("/dashboard/your-files"),
   })
 );
 

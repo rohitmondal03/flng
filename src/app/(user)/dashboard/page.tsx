@@ -17,7 +17,7 @@ export default async function Component() {
   const user = auth.session?.user;
   
   return (
-    <div className="w-full min-h-screen flex flex-col">
+    <div className="w-full min-h-screen flex flex-col pb-5">
       <header className="flex items-center justify-between shadow-sm p-4 sm:py-10 px-4 lg:px-20 w-full">
         <div className="flex items-center gap-24">
           <p className="text-xl sm:text-2xl font-bold">
@@ -49,12 +49,6 @@ export default async function Component() {
         </div>
         <div className="col-span-6 md:col-span-3">
           <ProfileSettings />
-        </div>
-        <div id="shared-files" className="col-span-6">
-          <UsersSharedFilesDetails />
-        </div>
-        <div id="received-files" className="col-span-6">
-          <UsersReceivedFilesDetails />
         </div>
         <div id="storage-details" className="col-span-6">
           <StorageUsageDetails />

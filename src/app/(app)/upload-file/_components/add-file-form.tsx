@@ -75,7 +75,7 @@ export function AddFileForm() {
         <Input
           type="file"
           name="file"
-          accept="application/pdf, application/docs, application/docx, application/doc"
+          accept="application/*, image/*"
         />
       </div>
       <div className="bg-gray-100 dark:bg-gray-800 rounded-lg px-8 py-12 flex items-center justify-center">

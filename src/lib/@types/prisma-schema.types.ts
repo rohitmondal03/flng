@@ -1,6 +1,6 @@
-import type { User } from "@prisma/client";
-
+import type { User, File } from "@prisma/client";
 
 export {
-  User as TUserSchema
+  User as TUserSchema,
+  File as TFileSchema
 }

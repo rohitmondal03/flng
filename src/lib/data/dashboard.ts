@@ -1,17 +1,18 @@
-import type { TDashboardNavLinks } from "../@types/dashboard.types";
+import { routes } from "@/config/routes";
+import type { TDashboardNavLinks } from "../@types/data.types";
 
 
 export const DASHBOARD_NAV_LINKS: TDashboardNavLinks[] = [
   {
-    href: "#shared-files",
-    label: "Shared Files"
+    label: "Your Files",
+    href: routes.yourfiles(),
   },
   {
-    href: "#received-files",
-    label: "Received Files"
+    label: "Received Files",
+    href: routes.receivedfiles(),
   },
   {
+    label: "Storage Details",
     href: "#storage-details",
-    label: "Storage Details"
   }
 ]

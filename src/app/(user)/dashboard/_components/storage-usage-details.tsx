@@ -34,8 +34,8 @@ export async function StorageUsageDetails() {
               Used Storage
             </p>
             <p className="text-base font-medium">
-              {String(Number(userData?.storage_used ?? 0) / 1024 / 1024)} MB
-              <span className="text-muted-foreground">({`${progressValue}`}% used)</span>
+              {String((Number(userData?.storage_used ?? 0) / 1024 / 1024).toFixed(3))} MB
+              <span className="text-muted-foreground">({`${progressValue.toFixed(3)}`}% used)</span>
             </p>
           </div>
           <Progress value={progressValue} />
@@ -44,7 +44,7 @@ export async function StorageUsageDetails() {
               Total Storage
             </p>
             <p className="text-base font-medium">
-              {String(Number(userData?.total_storage ?? 0) / 1024 / 1024)} MB
+              {String((Number(userData?.total_storage ?? 0) / 1024 / 1024).toFixed(3))} MB
             </p>
           </div>
         </div>
