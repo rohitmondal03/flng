@@ -138,3 +138,17 @@ export const deleteFile = async (fileId: string, storageFileId: string) => {
 
   revalidatePath(routes.yourfiles());
 }
+
+
+export const downloadFile = async (fileName: string) => {
+  const { error } = await supabaseClient
+    .storage
+    .from('files')
+    .download(fileName)
+
+  if(error) {
+    return {
+      error: error.message,
+    }
+  }
+}
