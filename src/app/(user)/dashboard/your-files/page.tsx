@@ -25,20 +25,12 @@ export default async function YourFilesPage() {
     }
   })
 
-  // get file details from storage
-  // const getFile =  async () => {
-  //   await supabaseClient
-  //     .storage
-  //     .from("files")
-  // } 
-
-
   return (
     <div className="w-full min-h-screen flex flex-col pb-5 p-4 sm:py-10 px-4 lg:px-20 space-y-16">
       <header className="flex items-center justify-between w-full">
         <h1 className="text-2xl sm:text-3xl font-bold underline underline-offset-4 decoration-slate-400 w-fit">
           <span className="text-zinc-500">
-            {userData.session?.user.name}'s {" "}
+            {userData.session?.user.name}&apos;s {" "}
           </span>
           <span className="">uploaded files</span>
         </h1>

@@ -60,7 +60,7 @@ function DeleteButtonDialog({ fileName, fileId, closeDialog, storageFileId }: TD
             Are you sure you want to delete this file ?
           </DialogTitle>
           <DialogDescription>
-            Clicking on "Yes" will delete this file and you'll not be able to retrieve it.
+            Clicking on &quot;Yes&quot; will delete this file and you&apos;ll not be able to retrieve it.
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center gap-6">
