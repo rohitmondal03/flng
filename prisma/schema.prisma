@@ -14,19 +14,20 @@ datasource db {
 }
 
 model User {
-  id             String    @id @unique
-  username       String    @unique
-  name           String?
-  email          String?
-  files_received Int       @default(0)
-  files_shared   Int       @default(0)
-  files_uploaded Int       @default(0)
-  storage_used   Int       @default(0)
-  total_storage  Int       @default(1048576) // stored in bytes
-  onboarded_at   DateTime  @default(now())
-  auth_session   Session[]
-  key            Key[]
-  files          File[]
+  id                   String                 @id @unique
+  username             String                 @unique
+  name                 String?
+  email                String?
+  files_received       Int                    @default(0)
+  files_shared         Int                    @default(0)
+  files_uploaded       Int                    @default(0)
+  storage_used         Int                    @default(0)
+  total_storage        Int                    @default(1048576) // stored in bytes
+  onboarded_at         DateTime               @default(now())
+  auth_session         Session[]
+  key                  Key[]
+  files                File[]
+  UsersProfilePictures UsersProfilePicture[]
 }
 
 model Session {
@@ -59,20 +60,29 @@ model Subscription {
 }
 
 model File {
-  id          String   @id @unique @default(cuid())
-  name        String
-  size        Int
-  file_type   FileType  @default(Unknown)
-  user_id     String
-  db_file_id  String
-  is_private  Boolean
-  uploaded_at DateTime @default(now())
-  shared_with String[] @default([])
-  user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  id              String   @id @unique @default(cuid())
+  name            String
+  size            Int
+  file_type       FileType @default(Unknown)
+  user_id         String
+  storage_file_id String
+  is_private      Boolean
+  uploaded_at     DateTime @default(now())
+  shared_with     String[] @default([])
+  user            User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
 }
 
+model UsersProfilePicture {
+  id              String   @id @unique @default(cuid())
+  user_id         String
+  db_file_id String
+  uploaded_at     DateTime @default(now())
+  user            User     @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+}
 
 enum FileType {
   Unknown

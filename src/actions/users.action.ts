@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { routes } from "@/config/routes";
 import { getUserAuth } from "@/lib/auth/utils"
 import { addUsersNameAndEmailSchema } from "@/lib/validators/user-schema";
+import { supabaseClient } from "@/lib/supabase";
+import { getPageSession } from "@/lib/auth/lucia";
 
 
 export const addUsersNameAndEmail = async (formData: unknown) => {
@@ -39,6 +41,46 @@ export const addUsersNameAndEmail = async (formData: unknown) => {
     console.log(err)
     return {
       error: [`Error while updating user's name and email`]
+    }
+  }
+}
+
+export const uploadProfilePicAction = async (formData: FormData) => {
+  const session = await getPageSession();
+  const img = formData.get("profile") as File;
+
+  if (!session) {
+    return {
+      error: "Session not found !!"
+    }
+  }
+
+  try {
+    const arrayBuffer = await img.arrayBuffer();
+
+    const { data: imgData, error } = await supabaseClient
+      .storage
+      .from("profile-pictures")
+      .upload(session.user.username, arrayBuffer, {
+        upsert: false,
+      })
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    await db?.usersProfilePictures.create({
+      data: {
+        user_id: session.user.userId,
+        db_file_id: imgData.id,
+      },
+    })
+
+    revalidatePath("/dashboard");
+  }
+  catch (error) {
+    return {
+      error
     }
   }
 }

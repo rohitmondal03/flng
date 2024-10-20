@@ -33,7 +33,7 @@ export const resetPasswordAction = async (formData: unknown) => {
 
   // call the API to change the password
   try {
-    const userAuth = await auth.updateKeyPassword("username", enteredUsername, newPassword)
+    await auth.updateKeyPassword("username", enteredUsername, newPassword)
   } catch (err) {
     return {
       error: [`Error while changing password for ${enteredUsername}`]

@@ -111,8 +111,8 @@ export function AddFileForm() {
               />
             </div>
           </div>
-          <SubmitButton variant={"destructive"}>
-            Share File
+          <SubmitButton variant={"default"}>
+            Add File
           </SubmitButton>
         </div>
       </div>

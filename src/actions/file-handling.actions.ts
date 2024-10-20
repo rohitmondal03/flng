@@ -9,7 +9,6 @@ import { supabaseClient } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 // import { PRIVATE_KEY } from "@/config";
 
-
 // Add new file to the storage
 export const addFileToDatabase = async (data: FormData) => {
   // const nodeRsa = new NodeRsa();
@@ -53,7 +52,7 @@ export const addFileToDatabase = async (data: FormData) => {
         size: file.size,  //bytes
         user_id: session.user.userId,
         uploaded_at: new Date(),
-        db_file_id: fileData.id,
+        storage_file_id: fileData.id,
         is_private: isPrivate === "on",
         file_type: file.type.startsWith("application") ? "Document" : "Image"
       }
@@ -80,8 +79,6 @@ export const addFileToDatabase = async (data: FormData) => {
   redirect(routes.yourfiles());
 }
 
-
-
 export const deleteFile = async (fileId: string, storageFileId: string) => {
   const session = await getPageSession();
 
@@ -91,7 +88,7 @@ export const deleteFile = async (fileId: string, storageFileId: string) => {
     fileData = await db?.file.delete({
       where: {
         id: fileId,
-        db_file_id: storageFileId,
+        storage_file_id: storageFileId,
         user_id: session?.user.userId,
       }
     })
@@ -138,7 +135,6 @@ export const deleteFile = async (fileId: string, storageFileId: string) => {
 
   revalidatePath(routes.yourfiles());
 }
-
 
 export const downloadFile = async (fileName: string) => {
   const { error } = await supabaseClient

@@ -6,7 +6,14 @@ import { memo, useState } from "react";
 import { deleteFile } from "@/actions/file-handling.actions";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { DialogTitle, DialogHeader, DialogDescription, Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import {
+  DialogTitle,
+  DialogHeader,
+  DialogDescription,
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+} from "@/components/ui/dialog";
 
 type TDeleteButtonDialogPropos = {
   fileId: string;
@@ -19,6 +26,7 @@ function DeleteButtonDialog({ fileName, fileId, closeDialog, storageFileId }: TD
   const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(false);
 
+  // for deleting the file
   const handleDeleteFile = async () => {
     setIsLoading(true);
     const response = await deleteFile(fileId, storageFileId)
@@ -31,7 +39,7 @@ function DeleteButtonDialog({ fileName, fileId, closeDialog, storageFileId }: TD
       })
       return;
     }
-    else if (response?.error) {
+    else if (response.error) {
       toast({
         title: "Error deleting file",
         description: response.error as string,

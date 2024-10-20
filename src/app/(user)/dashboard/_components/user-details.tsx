@@ -1,4 +1,7 @@
 import { getUserAuth } from "@/lib/auth/utils"
+import { supabaseClient } from "@/lib/supabase";
+import { ProfilePicUploadDialogContent } from "./profile-pic-upload-dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Avatar,
   AvatarImage,
@@ -13,7 +16,7 @@ import {
 
 export async function UserDetails() {
   const auth = await getUserAuth();
-  const username = auth.session?.user.username
+  const username = auth.session?.user.username;
 
   // get user's data from db
   const userData = await db?.user.findFirst({
@@ -22,13 +25,28 @@ export async function UserDetails() {
     },
   });
 
+  // get user's profile pic
+  const profilePicURL = supabaseClient
+    .storage
+    .from("profile-pictures")
+    .getPublicUrl(`/${userData?.username}`)
+    .data
+    .publicUrl
+
   return (
     <Card className="h-full">
       <CardHeader className="flex items-center gap-4">
-        <Avatar className="h-16 w-16">
-          <AvatarImage src="/placeholder-user.jpg" />
-          <AvatarFallback>JP</AvatarFallback>
-        </Avatar>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Avatar className="h-16 w-16">
+              <AvatarImage src={profilePicURL} />
+              <AvatarFallback>{userData?.name?.slice(0, 2)}</AvatarFallback>
+            </Avatar>
+          </DialogTrigger>
+          <DialogContent className="dark:border-zinc-200">
+            <ProfilePicUploadDialogContent profilePicURL={profilePicURL} />
+          </DialogContent>
+        </Dialog>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 gap-y-8 justify-between">

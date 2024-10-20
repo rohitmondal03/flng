@@ -7,48 +7,54 @@ import type { NextRequest } from "next/server";
 
 export const POST = async (request: NextRequest) => {
   const formData = await request.formData();
-  const username = formData.get("username");
-  const password = formData.get("password");
-  const confirmPassword = formData.get("confirm-password");
+
+  const username = formData.get("username")?.toString();
+  const password = formData.get("password")?.toString();
+  const confirmPassword = formData.get("confirm-password")?.toString();
   const email = formData.get("email");
+
+  // check if user with same username already present
+  const user = await db?.user.findUnique({
+    where: { username }
+  })
+
+  if(user) {
+    return NextResponse.json({
+      error: "User with same already exists !!"
+    }, {
+      status: 409
+    })
+  }
+
   // basic check
   if (password !== confirmPassword) {
-    return NextResponse.json(
-      {
-        error: "Passwords do not match",
-      },
-      {
-        status: 400,
-      }
-    );
+    return NextResponse.json({
+      error: "Passwords do not match",
+    }, {
+      status: 400,
+    });
   }
   if (
     typeof username !== "string" ||
     username.length < 5 ||
     username.length > 31
   ) {
-    return NextResponse.json(
-      {
-        error: "Invalid username",
-      },
-      {
-        status: 400,
-      }
-    );
+    return NextResponse.json({
+      error: "Invalid username",
+    }, {
+      status: 400,
+    });
   }
   if (
     typeof password !== "string" ||
     password.length < 6 ||
     password.length > 255
   ) {
-    return NextResponse.json(
-      {
-        error: "Invalid password",
-      },
-      {
-        status: 400,
-      }
-    );
+    return NextResponse.json({
+      error: "Invalid password",
+    }, {
+      status: 400,
+    });
   }
   try {
     const user = await auth.createUser({
